@@ -1,5 +1,5 @@
 <script>
-import GamesList from "./components/GamesList.vue";
+// import GamesList from "./components/GamesList.vue";
 
 export default {
   created() {
@@ -19,21 +19,16 @@ export default {
   },
 
   methods: {
-    search() {
-      console.log(this.games);
-      // const filteredUsers = filterArray(users, search.value);
-      // displayUsers(filteredUsers);
+    searchList() {
+      fetch(`https://www.cheapshark.com/api/1.0/deals?title=${this.searchTerm}`)
+        .then((response) => response.json())
+        .then((games) => {
+          this.games = games;
+        });
     },
-    //   filterArray(array, str) {
-    //     return array.filter(function (element) {
-    //       return element.title.toLowerCase().includes(str.toLowerCase());
-    //     });
-    //   },
-    // },
-
-    components: {
-      GamesList,
-    },
+  },
+  components: {
+    //GamesList,
   },
 };
 </script>
@@ -77,7 +72,7 @@ export default {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" />
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -94,15 +89,15 @@ export default {
         <form class="d-flex" role="search">
           <input
             class="form-control me-2 search-bar"
-            type="search"
+            type="text"
             placeholder="Search for games..."
             aria-label="Search"
-            v-bind="search()"
             v-model="searchTerm"
-            @keyup="submit"
+            @keyup.enter="searchList"
           />
           <button class="btn btn-secondary" type="submit">Search</button>
         </form>
+        <i class="bi bi-cart2 bg-primary" />
       </div>
     </div>
   </nav>

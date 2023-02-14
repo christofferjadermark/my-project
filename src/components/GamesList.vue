@@ -7,6 +7,12 @@ export default {
         this.games = games;
       });
   },
+
+  computed: {
+    addToCart() {
+      return this.$store.state.cartValue;
+    },
+  },
   data() {
     return {
       games: [],
@@ -36,6 +42,7 @@ export default {
   border-radius: 5px;
   padding-bottom: 30px;
   box-shadow: 0px 0px 30px 4px rgba(0, 0, 0, 1);
+  cursor: pointer;
 }
 
 .games-img {
@@ -63,7 +70,16 @@ export default {
       <img class="games-img" :src="game.thumb" :key="games.id" />
       <p class="game-title">{{ game.title }}</p>
       <p class="sale-price">{{ game.salePrice }} $</p>
-      <button type="button" class="btn btn-secondary">Add to cart</button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        @click="$store.commit('addToCart', this.cartValue)"
+      >
+        Add to cart
+      </button>
     </div>
   </div>
 </template>
+
+<!-- :value="`${store.state.cartValue}`"
+@click="${store.commit('addToCart')}" -->
