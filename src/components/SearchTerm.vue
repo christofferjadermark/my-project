@@ -7,16 +7,29 @@ export default {
     },
   },
   created() {
-    fetch(`https://www.cheapshark.com/api/1.0/deals?title=${this.searchTerm}`)
-      .then((response) => response.json())
-      .then((games) => {
-        this.games = games;
-      });
+    this.games = [];
+    this.fetchGames();
   },
   data() {
     return {
-      games: [],
+      games: null,
     };
+  },
+
+  watch: {
+    searchTerm: function () {
+      this.fetchGames();
+    },
+  },
+
+  methods: {
+    fetchGames() {
+      fetch(`https://www.cheapshark.com/api/1.0/deals?title=${this.searchTerm}`)
+        .then((response) => response.json())
+        .then((games) => {
+          this.games = games;
+        });
+    },
   },
 };
 </script>
@@ -69,7 +82,7 @@ export default {
 </style>
 
 <template>
-  <div v-if="game" class="search-container">
+  <div v-if="games.length > 0" class="search-container">
     <h1 class="search-result">Search Results for "{{ searchTerm }}"</h1>
     <div class="game-container" v-for="game in games" :key="game.gameID">
       {{ game.title }}
