@@ -1,9 +1,11 @@
 <script>
 import GamesList from "../components/GamesList.vue";
+import SlidesComp from "../components/SlidesComp.vue";
 
 export default {
   components: {
     GamesList,
+    SlidesComp,
   },
 };
 </script>
@@ -19,9 +21,14 @@ export default {
   margin: 50px 0;
   font-family: "Poppins", sans-serif;
 }
+
+.slides-comp {
+  margin-bottom: 200px;
+}
 </style>
 
 <template>
   <h1 class="main-header">Games that's on sale!</h1>
+  <SlidesComp class="slides-comp" />
   <GamesList />
 </template>

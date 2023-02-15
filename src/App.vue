@@ -1,6 +1,6 @@
 <script>
 // import GamesList from "./components/GamesList.vue";
-
+import router from "./router";
 export default {
   created() {
     fetch("https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=15")
@@ -24,6 +24,7 @@ export default {
         .then((response) => response.json())
         .then((games) => {
           this.games = games;
+          router.push({ name: "searchResults", query: { q: this.searchTerm } });
         });
     },
   },
@@ -95,9 +96,11 @@ export default {
             v-model="searchTerm"
             @keyup.enter="searchList"
           />
-          <button class="btn btn-secondary" type="submit">Search</button>
+          <button class="btn btn-secondary" @click="searchList" type="submit">
+            Search
+          </button>
         </form>
-        <i class="bi bi-cart2 bg-primary" />
+        <i class="bi bi-cart2 bg-primary p-4" />
       </div>
     </div>
   </nav>

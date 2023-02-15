@@ -1,3 +1,11 @@
+<script>
+import SearchTerm from "../components/SearchTerm.vue";
+
+export default {
+  components: { SearchTerm },
+};
+</script>
+
 <template>
-  <h1>This is GameSite</h1>
+  <SearchTerm />
 </template>
